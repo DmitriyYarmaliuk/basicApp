@@ -10,7 +10,13 @@ class Input extends Component {
     }
     onTextChange = (val) => {
         this.setState({ text: val })
-        this.state.text
+    }
+    buttonClicked = () => {
+        if (!this.state.text.trim()) {
+            return
+        }
+        this.props.onValueAdded(this.state.text)
+        this.setState({ text: '' })
     }
     render() {
         return (

@@ -1,52 +1,25 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
-import ListItem from './src/components/ListItem/ListItem'
+import { StyleSheet, View } from 'react-native';
+import Input from './src/components/Input'
+import List from './src/components/List'
 
 export default class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            text: '',
             values: [],
         }
     }
-
-    buttonClicked = () => {
-        if (!this.state.text.trim()) {
-            return
-        }
-        let updatedValues = this.state.values.concat(this.state.text)
-        this.setState({ values: updatedValues, text: '' })
+    onValueAddedHandler = (text) => {
+        let updatedValues = this.state.values.concat(text)
+        this.setState({ values: updatedValues })
     }
-
-    onTextChange = (val) => {
-        this.setState({ text: val })
-        this.state.text
-    }
-
     render() {
-        const valuesToShow = this.state.values.map((value, index) => (
-            <ListItem key={index} text={value} />
-        ))
+
         return (
             <View style={styles.container}>
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        style={{ backgroundColor: "#ffff" }}
-                        onChangeText={this.onTextChange}
-                        value={this.state.text}
-                        placeholder="Enter Text"
-                        style={styles.placeInput}
-                    />
-                    <Button
-                        onPress={this.buttonClicked}
-                        title="Add"
-                        color="#841584"
-                        accessibilityLabel="Learn more about this purple button"
-                        style={styles.placeButton}
-                    />
-                </View>
-                <View style={styles.listContainer}>{valuesToShow}</View>
+                <Input onValueAdded={this.onValueAddedHandler} />
+                <List values={this.state.values} />
             </View >
         );
     }
@@ -64,20 +37,4 @@ const styles = StyleSheet.create({
         backgroundColor: "#ffff",
         justifyContent: "flex-start", // adjustments for the main access
     },
-    inputContainer: {
-        width: "100%",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        width: "100%",
-    },
-    placeInput: {
-        width: "70%"
-    },
-    placeButton: {
-        width: "30%"
-    },
-    listContainer: {
-        width: "100%"
-    }
 });
