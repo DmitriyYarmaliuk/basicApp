@@ -11,10 +11,10 @@ export default class App extends React.Component {
         }
     }
     onValueAddedHandler = (text) => {
-        let updatedValues = this.state.values.concat(text)
+        let updatedValues = this.state.values.concat({ key: Math.random().toString(), value: text })
         this.setState({ values: updatedValues })
     }
-    deleteItem = (index) => {
+    deleteItem = (key) => {
         // let newValues = this.state.values
         // newValues.splice(index, 1)
         // alert(newValues)
@@ -23,8 +23,8 @@ export default class App extends React.Component {
         // technically asynchronous
         this.setState((prevState) => {
             return {
-                values: prevState.values.filter((place, i) => {
-                    return i !== index
+                values: prevState.values.filter((place) => {
+                    return place.key !== key
                 })
             }
         })
