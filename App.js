@@ -14,12 +14,27 @@ export default class App extends React.Component {
         let updatedValues = this.state.values.concat(text)
         this.setState({ values: updatedValues })
     }
+    deleteItem = (index) => {
+        // let newValues = this.state.values
+        // newValues.splice(index, 1)
+        // alert(newValues)
+        // this.setState({ values: newValues })
+        // This ensures that the call is made when the update is actually made since setState is
+        // technically asynchronous
+        this.setState((prevState) => {
+            return {
+                values: prevState.values.filter((place, i) => {
+                    return i !== index
+                })
+            }
+        })
+    }
     render() {
 
         return (
             <View style={styles.container}>
                 <Input onValueAdded={this.onValueAddedHandler} />
-                <List values={this.state.values} />
+                <List values={this.state.values} onItemDeleted={this.deleteItem} />
             </View >
         );
     }

@@ -1,11 +1,22 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableWithoutFeedback,
+    TouchableHighlight,
+    TouchableOpacity,
+    TouchableNativeFeedback
+} from 'react-native'
 
 // Functional component
 const listItem = (props) => (
-    <View style={styles.listItem} >
-        <Text>{props.text}</Text>
-    </View>
+    // The TouchableWithoutFeedBack component can have only one child element
+    <TouchableOpacity onPress={props.onItemPressed}>
+        <View style={styles.listItem}>
+            <Text>{props.text}</Text>
+        </View>
+    </TouchableOpacity>
 )
 
 const styles = StyleSheet.create({
